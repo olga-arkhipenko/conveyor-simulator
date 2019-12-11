@@ -5,8 +5,6 @@
 
 // T = t * (m + n - 1)
 
-const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms)); //helpers
-
 const createItemNode = itemId => {
     const itemNode = document.createElement('div');
     itemNode.id = `item ${itemId}`;
