@@ -54,9 +54,7 @@ const startConveyor = () => {
 
 window.onload = function () {
   const storage = document.querySelector('.storage');
-  console.log('kek');
   const conveyor = document.querySelector('.stages');
-  console.log(conveyor);
 
   // n = 6
   loadStorage(6, storage);
