@@ -27,49 +27,50 @@ const createStageNode = stageId => {
     return stageNode;
 };
 
-const STORAGE = document.querySelector('.storage');
+const storageDom = document.querySelector('.storage');
 // n = 6
-const ITEMS = Array(6).fill().map((_, idx) => createItemNode(idx));
-ITEMS.forEach(item => STORAGE.appendChild(item));
+const itemsDom = Array(6).fill().map((_, idx) => createItemNode(idx));
+itemsDom.forEach(item => storageDom.appendChild(item));
 
-const CONVEYOR = document.querySelector('.stages');
+const conveyorDom = document.querySelector('.stages');
 // m = 5
-const STAGES = Array(5).fill().map((_, idx) => createStageNode(idx));
-STAGES.forEach(stage => CONVEYOR.appendChild(stage));
+const stagesDom = Array(5).fill().map((_, idx) => createStageNode(idx));
+stagesDom.forEach(stage => conveyorDom.appendChild(stage));
 
 const startConveyor = () => {
-    const conveyorState = Array(STAGES.length).fill(null);
-    const storageState = ITEMS.slice();
+    const conveyorState = Array(stagesDom.length).fill(null);
+    const storageState = itemsDom.slice();
     setInterval(() => {
         console.log("conveyor state", conveyorState);
         console.log("storage state", storageState);
         // out
         const output = conveyorState[conveyorState.length - 1];
         if (output != null) {
-          STAGES[STAGES.length - 1].removeChild(output);
+          stagesDom[stagesDom.length - 1].removeChild(output);
           storageState.push(output);
-          STORAGE.appendChild(output);
+          storageDom.appendChild(output);
         }
 
         // next stage
-        for (let i = STAGES.length - 1; i > 0; --i) {
+        for (let i = stagesDom.length - 1; i > 0; --i) {
           const itemMoved = conveyorState[i - 1];
           conveyorState[i] = itemMoved;
           if (itemMoved != null) {
-            STAGES[i - 1].removeChild(itemMoved);
-            STAGES[i].appendChild(itemMoved);
+            stagesDom[i - 1].removeChild(itemMoved);
+            stagesDom[i].appendChild(itemMoved);
           }
         }
 
         // in
         const input = storageState.shift();
         if (input != null) {
-          STORAGE.removeChild(input);
+          storageDom.removeChild(input);
 
           conveyorState[0] = input;
-          STAGES[0].appendChild(input);
+          stagesDom[0].appendChild(input);
         }
     }, 3000);
 };
-document.querySelector('.start-button').onclick = startConveyor;
 
+const startButton = document.querySelector('.start-button');
+startButton.addEventListener('click', startConveyor);
