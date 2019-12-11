@@ -4,11 +4,7 @@
 // T - general time
 
 // T = t * (m + n - 1)
-
 const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms)); //helpers
-
-const storage = document.querySelector('.items');
-const conveyor = document.querySelector('.stages');
 
 const loadStorage = (itemsAmount, storage) => {
     for(let i = 1; i <= itemsAmount; i++) {
@@ -19,9 +15,6 @@ const loadStorage = (itemsAmount, storage) => {
         storage.appendChild(itemNode);
     }
 };
-
-// n = 6
-loadStorage(6, storage);
 
 const createStageNode = (stageId, stageLabel) => {
     const stageNode = document.createElement('div');
@@ -44,23 +37,29 @@ const loadConveyor = (stagesAmount, conveyor) => {
     }
 };
 
-// m = 5
-loadConveyor(5, conveyor);
-
 // t = 3s
 const manufacture = async item => {
     const stages = document.querySelectorAll('.stage__inner')
-    stages.forEach(stage => {
+    stages.forEach(async stage => {
         stage.appendChild(item);
         await sleep(3000);
         stage.removeChild(item);
     });
 }
 
-
 const startConveyor = () => {
     const items = document.querySelectorAll('.item');
     items.forEach(item => manufacture(item));
 };
 
+window.onload = function () {
+  const storage = document.querySelector('.storage');
+  console.log('kek');
+  const conveyor = document.querySelector('.stages');
+  console.log(conveyor);
 
+  // n = 6
+  loadStorage(6, storage);
+  // m = 5
+  loadConveyor(5, conveyor);
+}
