@@ -1,0 +1,26 @@
+{
+  "name": "conveyor-simulator",
+  "version": "0.1.0",
+  "description": "Highly detailed inbrowser conveyor-simulation",
+  "main": "index.js",
+  "scripts": {
+    "dev": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olga-arkhipenko/conveyor-simulator.git"
+  },
+  "keywords": [
+    "conveyor",
+    "simulation"
+  ],
+  "author": "olga-arkhipenko",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/olga-arkhipenko/conveyor-simulator/issues"
+  },
+  "homepage": "https://github.com/olga-arkhipenko/conveyor-simulator#readme",
+  "dependencies": {
+    "http-server": "^0.12.1"
+  }
+}
