@@ -5,6 +5,8 @@
 
 // T = t * (m + n - 1)
 
+import './modules/state.mjs';
+
 const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms)); //helpers
 
 const storage = document.querySelector('.items');
