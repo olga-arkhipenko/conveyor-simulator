@@ -4,7 +4,8 @@
   "description": "Highly detailed inbrowser conveyor-simulation",
   "main": "index.js",
   "scripts": {
-    "dev": "http-server"
+    "dev": "http-server",
+    "lint": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "eslint --fix-dry-run ."
+      "pre-commit": "npm run lint"
     }
   }
 }
