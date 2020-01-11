@@ -21,7 +21,11 @@
   },
   "homepage": "https://github.com/olga-arkhipenko/conveyor-simulator#readme",
   "devDependencies": {
-    "eslint": "6.8.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-prettier": "3.1.2",
     "http-server": "^0.12.1",
     "husky": "4.0.6",
     "prettier": "1.19.1",
@@ -29,7 +33,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "eslint --fix && pretty-quick --staged"
+      "pre-commit": "eslint --fix-dry-run ."
     }
   }
 }
