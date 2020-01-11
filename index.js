@@ -11,7 +11,7 @@ const STORAGE = document.querySelector(".items");
 const CONVEYOR = document.querySelector(".stages");
 
 const loadStorage = (itemsAmount, storage) => {
-  for (let i = 1; i <= itemsAmount; i += 1) {
+  for (let i = 1; i <= itemsAmount; ++i) {
     const itemNode = document.createElement("div");
     itemNode.id = `item ${i}`;
     itemNode.className = "item";
@@ -38,7 +38,7 @@ const createStageNode = (stageId, stageLabel) => {
 };
 
 const loadConveyor = (stagesAmount, conveyor) => {
-  for (let i = 1; i <= stagesAmount; i += 1) {
+  for (let i = 1; i <= stagesAmount; ++i) {
     const stageNode = createStageNode(`stage ${i}`, `Stage ${i}`);
     conveyor.appendChild(stageNode);
   }
