@@ -20,7 +20,7 @@
     "url": "https://github.com/olga-arkhipenko/conveyor-simulator/issues"
   },
   "homepage": "https://github.com/olga-arkhipenko/conveyor-simulator#readme",
-  "dependencies": {
+  "devDependencies": {
     "http-server": "^0.12.1"
   }
 }
