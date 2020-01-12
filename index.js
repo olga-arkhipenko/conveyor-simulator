@@ -4,9 +4,9 @@
 // T - general time
 
 // T = t * (m + n - 1)
-import './modules/state.mjs';
+import "./modules/state.mjs";
 
-const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms)); //helpers
+const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms)); // helpers
 
 const STORAGE = document.querySelector(".items");
 const CONVEYOR = document.querySelector(".stages");

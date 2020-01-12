@@ -6,6 +6,9 @@ module.exports = {
   extends: [
     'airbnb-base',
     'prettier',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript'
   ],
   globals: {
     Atomics: 'readonly',
@@ -19,5 +22,8 @@ module.exports = {
     'prettier/prettier': 'error',
     'no-plusplus': 'off',
   },
-  plugins: ['prettier'],
+  plugins: ['prettier', 'import'],
+  settings: {
+    'import/extensions': ['.mjs', '.js'],
+  }
 };
