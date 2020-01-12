@@ -4,7 +4,8 @@
   "description": "Highly detailed inbrowser conveyor-simulation",
   "main": "index.js",
   "scripts": {
-    "dev": "http-server"
+    "dev": "http-server",
+    "lint": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,20 @@
     "url": "https://github.com/olga-arkhipenko/conveyor-simulator/issues"
   },
   "homepage": "https://github.com/olga-arkhipenko/conveyor-simulator#readme",
-  "dependencies": {
-    "http-server": "^0.12.1"
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "http-server": "^0.12.1",
+    "husky": "4.0.6",
+    "prettier": "1.19.1",
+    "pretty-quick": "2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
