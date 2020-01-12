@@ -21,6 +21,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'no-plusplus': 'off',
+    'import/prefer-default-export': 'off'
   },
   plugins: ['prettier', 'import'],
   settings: {

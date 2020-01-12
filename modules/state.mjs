@@ -1,13 +1,15 @@
-import { deepCopy } from './utils.mjs';
-import { Item } from './models.mjs';
+import { deepCopy } from "./utils.mjs";
+import { Item } from "./models.mjs";
 
 export const ITEM_COUNT = 6;
 export const STAGE_COUNT = 3;
 
 const INITIAL_STATE = {
-  storage: Array(ITEM_COUNT).fill().map((_, id) => new Item(id)),
+  storage: Array(ITEM_COUNT)
+    .fill()
+    .map((_, id) => new Item(id)),
   stages: Array(STAGE_COUNT).fill(null),
-  output: [],
+  output: []
 };
 
 export function stateManager(state = null) {
