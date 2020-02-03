@@ -1,65 +1,70 @@
-// m - amount of stages
-// n - amount of items
-// t - time for passing 1 stage
-// T - general time
+const CONVEYOR_STAGE_COUNT = 4;
+const ITEM_COUNT = 13;
 
-// T = t * (m + n - 1)
+const itemsContainer = document.getElementById("items");
+const stagesContainer = document.getElementById("conveyor-stages");
+const outputContainer = document.getElementById("output");
 
-const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms)); // helpers
+const startButton = document.getElementById("start-button");
 
-const STORAGE = document.querySelector(".items");
-const CONVEYOR = document.querySelector(".stages");
-
-const loadStorage = (itemsAmount, storage) => {
-  for (let i = 1; i <= itemsAmount; ++i) {
-    const itemNode = document.createElement("div");
-    itemNode.id = `item ${i}`;
-    itemNode.className = "item";
-    itemNode.innerText = `Item ${i}`;
-    storage.appendChild(itemNode);
-  }
-};
-
-// n = 6
-loadStorage(6, STORAGE);
-
-const createStageNode = (stageId, stageLabel) => {
-  const stageNode = document.createElement("div");
-  stageNode.className = "stage";
-  const stageInnerNode = document.createElement("div");
-  stageInnerNode.id = stageId;
-  stageInnerNode.className = "stage__inner";
-  const stageLabelNode = document.createElement("p");
-  stageLabelNode.innerText = stageLabel;
-  stageLabelNode.className = "stage__label";
-  stageNode.appendChild(stageInnerNode);
-  stageNode.appendChild(stageLabelNode);
-  return stageNode;
-};
-
-const loadConveyor = (stagesAmount, conveyor) => {
-  for (let i = 1; i <= stagesAmount; ++i) {
-    const stageNode = createStageNode(`stage ${i}`, `Stage ${i}`);
-    conveyor.appendChild(stageNode);
-  }
-};
-
-// m = 5
-loadConveyor(5, CONVEYOR);
-
-// t = 3s
-const manufacture = async item => {
-  const stages = document.querySelectorAll(".stage__inner");
-  stages.forEach(async stage => {
-    stage.appendChild(item);
-    await sleep(3000);
-    stage.removeChild(item);
+const conveyorStages = Array(CONVEYOR_STAGE_COUNT)
+  .fill()
+  .map((_, id) => {
+    const stage = document.createElement("div");
+    stage.id = `conveyor-stage-${id}`;
+    stage.className = "stage";
+    return stage;
   });
-};
+conveyorStages.forEach(stage => stagesContainer.appendChild(stage));
 
-const startConveyor = () => {
-  const items = document.querySelectorAll(".item");
-  items.forEach(item => manufacture(item));
-};
+const items = Array(ITEM_COUNT)
+  .fill()
+  .map((_, id) => {
+    const item = document.createElement("div");
+    item.id = `item-${id}`;
+    item.className = "item";
+    item.appendChild(document.createTextNode(id.toString()));
+    return item;
+  });
 
-startConveyor();
+function placeItemsInStorage() {
+  items.forEach(item => itemsContainer.appendChild(item));
+}
+
+placeItemsInStorage();
+
+const stages = [...conveyorStages, outputContainer];
+
+function* itemStageIterator(item) {
+  let prevStage = itemsContainer;
+  for (const currentStage of stages) {
+    prevStage.removeChild(item);
+    currentStage.appendChild(item);
+    yield;
+    prevStage = currentStage;
+  }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function conveyorFlow() {
+  const storage = [...items];
+  let iterators = [itemStageIterator(storage.pop())];
+
+  while (iterators.length) {
+    iterators = iterators.filter(it => !it.next().done);
+
+    const nextItem = storage.pop();
+    if (nextItem) {
+      iterators.push(itemStageIterator(nextItem));
+    }
+
+    await sleep(1000);
+  }
+
+  placeItemsInStorage();
+}
+
+startButton.onclick = conveyorFlow;
