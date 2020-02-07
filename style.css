@@ -10,7 +10,7 @@
   margin: 20px;
 }
 
-.items {
+#items {
   display: inline-flex;
   flex-direction: column;
 }
@@ -23,7 +23,7 @@
   background-color: #b9d2ff;
 }
 
-.stages {
+#stages {
   display: flex;
   margin: 20px;
 }
@@ -49,7 +49,7 @@
   margin: 5px;
 }
 
-.start-button {
+#start-button {
   font-size: 16px;
   padding: 10px 30px;
   cursor: pointer;
