@@ -4,6 +4,7 @@ module.exports = {
     es6: true,
   },
   extends: [
+    'airbnb-base',
     'prettier',
   ],
   globals: {
@@ -17,6 +18,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'no-plusplus': 'off',
+    'no-restricted-syntax': 'off',
   },
   plugins: ['prettier'],
 };

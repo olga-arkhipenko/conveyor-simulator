@@ -70,7 +70,7 @@ async function conveyorFlow() {
       // filter out items, which completed all conveyor stages
       .filter(({ position }) => position < stages.length);
 
-    await sleep(1000);
+    await sleep(1000); // eslint-disable-line no-await-in-loop
   } while (inProgress.length);
 
   placeItemsInStorage();
