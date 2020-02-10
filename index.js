@@ -1,9 +1,9 @@
-import { sleep } from "./utils.mjs";
+import { sleep } from './utils.mjs';
 // pre-defined html elements
-const itemsContainer = document.getElementById("items");
-const stagesContainer = document.getElementById("conveyor-stages");
-const outputContainer = document.getElementById("output");
-const startButton = document.getElementById("start-button");
+const itemsContainer = document.getElementById('items');
+const stagesContainer = document.getElementById('conveyor-stages');
+const outputContainer = document.getElementById('output');
+const startButton = document.getElementById('start-button');
 
 // dynamically created elements
 const CONVEYOR_STAGE_COUNT = 4;
@@ -11,9 +11,9 @@ const CONVEYOR_STAGE_COUNT = 4;
 const conveyorStages = Array(CONVEYOR_STAGE_COUNT)
   .fill()
   .map((_, id) => {
-    const stage = document.createElement("div");
+    const stage = document.createElement('div');
     stage.id = `conveyor-stage-${id}`;
-    stage.className = "stage";
+    stage.className = 'stage';
     return stage;
   });
 
@@ -22,10 +22,10 @@ const ITEM_COUNT = 13;
 const items = Array(ITEM_COUNT)
   .fill()
   .map((_, id) => {
-    const item = document.createElement("div");
+    const item = document.createElement('div');
     const itemId = `item-${id}`;
     item.id = itemId;
-    item.className = "item";
+    item.className = 'item';
     item.appendChild(document.createTextNode(id.toString()));
     return { [itemId]: item };
   })
