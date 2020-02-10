@@ -1,4 +1,5 @@
-import { sleep } from './modules/utils.mjs';
+import { createConveyorStage, createItem } from './modules/elements.mjs';
+import { indexRange, sleep } from './modules/utils.mjs';
 // pre-defined html elements
 const itemsContainer = document.getElementById('items');
 const stagesContainer = document.getElementById('conveyor-stages');
@@ -8,27 +9,14 @@ const startButton = document.getElementById('start-button');
 // dynamically created elements
 const CONVEYOR_STAGE_COUNT = 4;
 
-const conveyorStages = Array(CONVEYOR_STAGE_COUNT)
-  .fill()
-  .map((_, id) => {
-    const stage = document.createElement('div');
-    stage.id = `conveyor-stage-${id}`;
-    stage.className = 'stage';
-    return stage;
-  });
+const conveyorStages = indexRange(CONVEYOR_STAGE_COUNT).map(
+  createConveyorStage
+);
 
 const ITEM_COUNT = 13;
 
-const items = Array(ITEM_COUNT)
-  .fill()
-  .map((_, id) => {
-    const item = document.createElement('div');
-    const itemId = `item-${id}`;
-    item.id = itemId;
-    item.className = 'item';
-    item.appendChild(document.createTextNode(id.toString()));
-    return { [itemId]: item };
-  })
+const items = indexRange(ITEM_COUNT)
+  .map(idx => ({ [idx]: createItem(idx) }))
   .reduce((res, item) => ({ ...res, ...item }), {});
 
 // render dynamically created elements
