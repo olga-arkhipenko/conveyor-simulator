@@ -22,5 +22,5 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off'
   },
-  plugins: ['prettier'],
+  plugins: ['prettier', 'jsdoc'],
 };
