@@ -1,7 +1,4 @@
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
+import { sleep } from "./utils.mjs";
 // pre-defined html elements
 const itemsContainer = document.getElementById("items");
 const stagesContainer = document.getElementById("conveyor-stages");
