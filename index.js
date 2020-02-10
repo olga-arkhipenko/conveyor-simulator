@@ -1,4 +1,4 @@
-import { sleep } from './utils.mjs';
+import { sleep } from './modules/utils.mjs';
 // pre-defined html elements
 const itemsContainer = document.getElementById('items');
 const stagesContainer = document.getElementById('conveyor-stages');
