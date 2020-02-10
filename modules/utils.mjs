@@ -5,4 +5,7 @@ export const sleep = async ms =>
  * Generate an array of indices up to the given `count`.
  * @param {number} count - upper limit of the index range.
  */
-export const indexRange = count => Array(count).map((_, idx) => idx);
+export const indexRange = count =>
+  Array(count)
+    .fill()
+    .map((_, idx) => idx);
