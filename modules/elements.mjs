@@ -1,5 +1,6 @@
 /** Create DOM representation of a conveyor stage.
  * @param {string} id - id of the stage.
+ * @returns {HTMLElement}
  */
 export const renderConveyorStage = id => {
   const stage = document.createElement('div');
@@ -10,6 +11,7 @@ export const renderConveyorStage = id => {
 
 /** Create DOM representation of an item.
  * @param {string} id - id of the item.
+ * @returns {HTMLElement}
  */
 export const renderItem = id => {
   const item = document.createElement('div');
@@ -23,10 +25,16 @@ export const renderItem = id => {
 // TODO: does it make sense to move pre-defined html element references here,
 // as well as initial element rendering logic?
 
+/** Disable button.
+ * @param {HTMLElement} button - button DOM element to disable.
+ */
 export const disableButton = button => {
-  button.disabled = true;
+  button.disabled = true; // eslint-disable-line no-param-reassign
 };
 
+/** Disable button.
+ * @param {HTMLElement} button - button DOM element to disable.
+ */
 export const enableButton = button => {
-  button.disabled = false;
+  button.disabled = false; // eslint-disable-line no-param-reassign
 };
