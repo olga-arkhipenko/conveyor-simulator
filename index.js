@@ -1,68 +1,62 @@
+import { renderConveyorStage, renderItem } from './modules/renders.mjs';
+import { indexRange, sleep } from './modules/utils.mjs';
+// pre-defined html elements
+const itemsContainer = document.getElementById('items');
+const stagesContainer = document.getElementById('stages');
+const outputContainer = document.getElementById('output');
+const startButton = document.getElementById('start-button');
+
+// dynamically created elements
 const CONVEYOR_STAGE_COUNT = 4;
+
+const conveyorStages = indexRange(CONVEYOR_STAGE_COUNT).map(
+  renderConveyorStage
+);
+
 const ITEM_COUNT = 13;
 
-const itemsContainer = document.getElementById("items");
-const stagesContainer = document.getElementById("conveyor-stages");
-const outputContainer = document.getElementById("output");
+const items = indexRange(ITEM_COUNT)
+  .map(i => ({ [i]: renderItem(i) }))
+  .reduce((res, item) => ({ ...res, ...item }), {});
 
-const startButton = document.getElementById("start-button");
-
-const conveyorStages = Array(CONVEYOR_STAGE_COUNT)
-  .fill()
-  .map((_, id) => {
-    const stage = document.createElement("div");
-    stage.id = `conveyor-stage-${id}`;
-    stage.className = "stage";
-    return stage;
-  });
-conveyorStages.forEach(stage => stagesContainer.appendChild(stage));
-
-const items = Array(ITEM_COUNT)
-  .fill()
-  .map((_, id) => {
-    const item = document.createElement("div");
-    item.id = `item-${id}`;
-    item.className = "item";
-    item.appendChild(document.createTextNode(id.toString()));
-    return item;
-  });
+// render dynamically created elements
+for (const stage of conveyorStages) {
+  stagesContainer.appendChild(stage);
+}
 
 function placeItemsInStorage() {
-  items.forEach(item => itemsContainer.appendChild(item));
+  for (const item of Object.values(items)) {
+    itemsContainer.appendChild(item);
+  }
 }
 
 placeItemsInStorage();
 
 const stages = [...conveyorStages, outputContainer];
 
-function* itemStageIterator(item) {
-  let prevStage = itemsContainer;
-  for (const currentStage of stages) {
-    prevStage.removeChild(item);
-    currentStage.appendChild(item);
-    yield;
-    prevStage = currentStage;
-  }
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 async function conveyorFlow() {
-  const storage = [...items];
-  let iterators = [itemStageIterator(storage.pop())];
+  const storage = Object.keys(items);
 
-  while (iterators.length) {
-    iterators = iterators.filter(it => !it.next().done);
-
-    const nextItem = storage.pop();
-    if (nextItem) {
-      iterators.push(itemStageIterator(nextItem));
+  let inProgress = [];
+  do {
+    const newItem = storage.pop();
+    if (newItem) {
+      inProgress.push({ id: newItem, position: 0 });
     }
 
-    await sleep(1000);
-  }
+    // place in-progress items according to their current position
+    for (const { id, position } of inProgress) {
+      stages[position].appendChild(items[id]);
+    }
+
+    // compute next state of in-progress items
+    inProgress = inProgress
+      .map(({ position, ...item }) => ({ ...item, position: position + 1 }))
+      // filter out items, which completed all conveyor stages
+      .filter(({ position }) => position < stages.length);
+
+    await sleep(1000); // eslint-disable-line no-await-in-loop
+  } while (inProgress.length);
 
   placeItemsInStorage();
 }
