@@ -1,6 +1,7 @@
 /** Create DOM representation of a conveyor stage.
+ *
  * @param {string} id - id of the stage.
- * @returns {HTMLElement}
+ * @returns {HTMLElement} - stage node.
  */
 export const renderConveyorStage = id => {
   const stage = document.createElement('div');
@@ -10,8 +11,9 @@ export const renderConveyorStage = id => {
 };
 
 /** Create DOM representation of an item.
+ *
  * @param {string} id - id of the item.
- * @returns {HTMLElement}
+ * @returns {HTMLElement} - item node.
  */
 export const renderItem = id => {
   const item = document.createElement('div');
@@ -26,14 +28,18 @@ export const renderItem = id => {
 // as well as initial element rendering logic?
 
 /** Disable button.
+ *
  * @param {HTMLElement} button - button DOM element to disable.
+ * @returns {void}
  */
 export const disableButton = button => {
   button.disabled = true; // eslint-disable-line no-param-reassign
 };
 
 /** Disable button.
+ *
  * @param {HTMLElement} button - button DOM element to disable.
+ * @returns {void}
  */
 export const enableButton = button => {
   button.disabled = false; // eslint-disable-line no-param-reassign
