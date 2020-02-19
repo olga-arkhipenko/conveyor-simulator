@@ -24,20 +24,21 @@ for (const stage of conveyorStages) {
   stagesContainer.appendChild(stage);
 }
 
-function placeItemsInStorage() {
+const placeItemsInStorage = () => {
   for (const item of Object.values(items)) {
     itemsContainer.appendChild(item);
   }
-}
+};
 
 placeItemsInStorage();
 
 const stages = [...conveyorStages, outputContainer];
 
-async function conveyorFlow() {
+const runConveyorFlow = async () => {
   const storage = Object.keys(items);
 
   let inProgress = [];
+
   do {
     const newItem = storage.pop();
     if (newItem) {
@@ -59,6 +60,6 @@ async function conveyorFlow() {
   } while (inProgress.length);
 
   placeItemsInStorage();
-}
+};
 
-startButton.onclick = conveyorFlow;
+startButton.onclick = runConveyorFlow;
