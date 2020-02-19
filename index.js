@@ -1,4 +1,4 @@
-import { renderConveyorStage, renderItem } from './modules/renders.mjs';
+import { renderConveyorStage, renderItem } from './modules/elements.mjs';
 import { indexRange, sleep } from './modules/utils.mjs';
 // pre-defined html elements
 const itemsContainer = document.getElementById('items');
