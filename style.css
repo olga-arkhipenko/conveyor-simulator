@@ -1,3 +1,8 @@
+:root {
+  --item-min-width: 40px;
+  --item-min-height: 40px;
+}
+
 .wrapper {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -6,50 +11,64 @@
   margin: 20px;
 }
 
+.storage__inner {
+  display: flex;
+  margin: 20px;
+  min-height: calc(var(--item-min-height) + 12px);
+}
+
 .conveyor__heading {
   margin: 20px;
 }
 
-#items {
-  display: inline-flex;
-  flex-direction: column;
+.conveyor__inner {
+  display: flex;
+  margin: 20px;
+}
+
+.output__heading {
+  margin: 20px;
+}
+
+.output__inner {
+  display: flex;
+  margin: 20px;
+  min-height: calc(var(--item-min-height) + 12px);
 }
 
 .item {
-  display: inline-block;
+  min-width: var(--item-min-width);
+  min-height: var(--item-min-height);
+  line-height: var(--item-min-height);
+  padding: 0 5px;
+  text-align: center;
   margin: 5px;
-  padding: 10px 15px;
   border: 1px solid;
   background-color: #b9d2ff;
-}
-
-#stages {
-  display: flex;
-  margin: 20px;
+  box-sizing: border-box;
 }
 
 .stage {
   display: flex;
   align-items: center;
-  flex-direction: column;
-}
-
-.stage__inner {
-  width: 120px;
-  height: 50px;
+  justify-content: center;
+  min-width: calc(var(--item-min-width) + 20px);
+  min-height: calc(var(--item-min-height) + 20px);
   border-bottom: 1px solid #000000;
   border-left: 1px solid #000000;
 }
 
-.stage:last-child .stage__inner {
+.stage:last-child {
   border-right: 1px solid #000000;
 }
 
-.stage__label {
-  margin: 5px;
+.start-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
 }
 
-#start-button {
+.start-button {
   font-size: 16px;
   padding: 10px 30px;
   cursor: pointer;
@@ -60,10 +79,4 @@
 
 .start-button:hover {
   background-color: #11af11;
-}
-
-.start-button-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
 }
