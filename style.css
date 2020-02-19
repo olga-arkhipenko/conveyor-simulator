@@ -1,6 +1,9 @@
 :root {
   --item-min-width: 40px;
   --item-min-height: 40px;
+  --item-color: #b9d2ff;
+  --start-button-color: #14c514;
+  --start-button-touched-color: #11af11;
 }
 
 .wrapper {
@@ -44,7 +47,7 @@
   text-align: center;
   margin: 5px;
   border: 1px solid;
-  background-color: #b9d2ff;
+  background-color: var(--item-color);
   box-sizing: border-box;
 }
 
@@ -72,11 +75,16 @@
   font-size: 16px;
   padding: 10px 30px;
   cursor: pointer;
-  border: 1px solid #018a01;
+  border: 1px solid #000000;
   border-radius: 5px;
-  background-color: #14c514;
+  background-color: var(--start-button-color);
 }
 
 .start-button:hover {
-  background-color: #11af11;
+  background-color: var(--start-button-touched-color);
+}
+
+.start-button:disabled {
+  background-color: var(--start-button-touched-color);
+  cursor: not-allowed;
 }
