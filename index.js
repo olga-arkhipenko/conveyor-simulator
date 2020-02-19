@@ -2,7 +2,7 @@ import { renderConveyorStage, renderItem } from './modules/renders.mjs';
 import { indexRange, sleep } from './modules/utils.mjs';
 // pre-defined html elements
 const itemsContainer = document.getElementById('items');
-const stagesContainer = document.getElementById('conveyor-stages');
+const stagesContainer = document.getElementById('stages');
 const outputContainer = document.getElementById('output');
 const startButton = document.getElementById('start-button');
 
