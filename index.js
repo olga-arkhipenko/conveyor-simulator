@@ -1,66 +1,64 @@
-// m - amount of stages
-// n - amount of items
-// t - time for passing 1 stage
-// T - general time
+import { renderConveyorStage, renderItem } from './modules/renders.mjs';
+import { indexRange, sleep } from './modules/utils.mjs';
+// pre-defined html elements
+const itemsContainer = document.getElementById('items');
+const stagesContainer = document.getElementById('stages');
+const outputContainer = document.getElementById('output');
+const startButton = document.getElementById('start-button');
 
-// T = t * (m + n - 1)
+// dynamically created elements
+const CONVEYOR_STAGE_COUNT = 4;
 
-const sleep = async ms => new Promise(resolve => setTimeout(resolve, ms)); //helpers
+const conveyorStages = indexRange(CONVEYOR_STAGE_COUNT).map(
+  renderConveyorStage
+);
 
-const storage = document.querySelector('.items');
-const conveyor = document.querySelector('.stages');
+const ITEM_COUNT = 13;
 
-const loadStorage = (itemsAmount, storage) => {
-    for(let i = 1; i <= itemsAmount; i++) {
-        const itemNode = document.createElement('div');
-        itemNode.id = `item ${i}`;
-        itemNode.className = 'item';
-        itemNode.innerText = `Item ${i}`;
-        storage.appendChild(itemNode);
-    }
-};
+const items = indexRange(ITEM_COUNT)
+  .map(i => ({ [i]: renderItem(i) }))
+  .reduce((res, item) => ({ ...res, ...item }), {});
 
-// n = 6
-loadStorage(6, storage);
-
-const createStageNode = (stageId, stageLabel) => {
-    const stageNode = document.createElement('div');
-    stageNode.className = 'stage';
-    const stageInnerNode = document.createElement('div');
-    stageInnerNode.id = stageId;
-    stageInnerNode.className = 'stage__inner';
-    const stageLabelNode = document.createElement('p');
-    stageLabelNode.innerText = stageLabel;
-    stageLabelNode.className = 'stage__label';
-    stageNode.appendChild(stageInnerNode);
-    stageNode.appendChild(stageLabelNode);
-    return stageNode;
-};
-
-const loadConveyor = (stagesAmount, conveyor) => {
-    for(let i = 1; i <= stagesAmount; i++) {
-        const stageNode = createStageNode(`stage ${i}`, `Stage ${i}`);
-        conveyor.appendChild(stageNode);
-    }
-};
-
-// m = 5
-loadConveyor(5, conveyor);
-
-// t = 3s
-const manufacture = async item => {
-    const stages = document.querySelectorAll('.stage__inner')
-    stages.forEach(stage => {
-        stage.appendChild(item);
-        await sleep(3000);
-        stage.removeChild(item);
-    });
+// render dynamically created elements
+for (const stage of conveyorStages) {
+  stagesContainer.appendChild(stage);
 }
 
+function placeItemsInStorage() {
+  for (const item of Object.values(items)) {
+    itemsContainer.appendChild(item);
+  }
+}
 
-const startConveyor = () => {
-    const items = document.querySelectorAll('.item');
-    items.forEach(item => manufacture(item));
-};
+placeItemsInStorage();
 
+const stages = [...conveyorStages, outputContainer];
 
+async function conveyorFlow() {
+  const storage = Object.keys(items);
+
+  let inProgress = [];
+  do {
+    const newItem = storage.pop();
+    if (newItem) {
+      inProgress.push({ id: newItem, position: 0 });
+    }
+
+    // place in-progress items according to their current position
+    for (const { id, position } of inProgress) {
+      stages[position].appendChild(items[id]);
+    }
+
+    // compute next state of in-progress items
+    inProgress = inProgress
+      .map(({ position, ...item }) => ({ ...item, position: position + 1 }))
+      // filter out items, which completed all conveyor stages
+      .filter(({ position }) => position < stages.length);
+
+    await sleep(1000); // eslint-disable-line no-await-in-loop
+  } while (inProgress.length);
+
+  placeItemsInStorage();
+}
+
+startButton.onclick = conveyorFlow;
