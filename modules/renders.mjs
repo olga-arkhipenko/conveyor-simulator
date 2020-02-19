@@ -1,7 +1,7 @@
 /** Create DOM representation of a conveyor stage.
  * @param {string} id - id of the stage.
  */
-export const createConveyorStage = id => {
+export const renderConveyorStage = id => {
   const stage = document.createElement('div');
   stage.id = `conveyor-stage-${id}`;
   stage.className = 'stage';
@@ -11,12 +11,12 @@ export const createConveyorStage = id => {
 /** Create DOM representation of an item.
  * @param {string} id - id of the item.
  */
-export const createItem = id => {
+export const renderItem = id => {
   const item = document.createElement('div');
   const itemId = `item-${id}`;
   item.id = itemId;
   item.className = 'item';
-  item.appendChild(document.createTextNode(id.toString()));
+  item.appendChild(document.createTextNode(String(id)));
   return item;
 };
 

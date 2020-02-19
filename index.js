@@ -1,4 +1,4 @@
-import { createConveyorStage, createItem } from './modules/elements.mjs';
+import { renderConveyorStage, renderItem } from './modules/renders.mjs';
 import { indexRange, sleep } from './modules/utils.mjs';
 // pre-defined html elements
 const itemsContainer = document.getElementById('items');
@@ -10,13 +10,13 @@ const startButton = document.getElementById('start-button');
 const CONVEYOR_STAGE_COUNT = 4;
 
 const conveyorStages = indexRange(CONVEYOR_STAGE_COUNT).map(
-  createConveyorStage
+  renderConveyorStage
 );
 
 const ITEM_COUNT = 13;
 
 const items = indexRange(ITEM_COUNT)
-  .map(idx => ({ [idx]: createItem(idx) }))
+  .map(i => ({ [i]: renderItem(i) }))
   .reduce((res, item) => ({ ...res, ...item }), {});
 
 // render dynamically created elements
