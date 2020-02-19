@@ -1,4 +1,9 @@
-import { renderConveyorStage, renderItem } from './modules/elements.mjs';
+import {
+  renderConveyorStage,
+  renderItem,
+  disableButton,
+  enableButton
+} from './modules/elements.mjs';
 import { indexRange, sleep } from './modules/utils.mjs';
 // pre-defined html elements
 const itemsContainer = document.getElementById('items');
@@ -35,6 +40,7 @@ placeItemsInStorage();
 const stages = [...conveyorStages, outputContainer];
 
 const runConveyorFlow = async () => {
+  disableButton(startButton);
   const storage = Object.keys(items);
 
   let inProgress = [];
@@ -60,6 +66,7 @@ const runConveyorFlow = async () => {
   } while (inProgress.length);
 
   placeItemsInStorage();
+  enableButton(startButton);
 };
 
 startButton.onclick = runConveyorFlow;

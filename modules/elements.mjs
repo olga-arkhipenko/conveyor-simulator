@@ -22,3 +22,11 @@ export const renderItem = id => {
 
 // TODO: does it make sense to move pre-defined html element references here,
 // as well as initial element rendering logic?
+
+export const disableButton = button => {
+  button.disabled = true;
+};
+
+export const enableButton = button => {
+  button.disabled = false;
+};
