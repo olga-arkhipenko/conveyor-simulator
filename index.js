@@ -1,4 +1,9 @@
-import { renderConveyorStage, renderItem } from './modules/renders.mjs';
+import {
+  renderConveyorStage,
+  renderItem,
+  disableButton,
+  enableButton
+} from './modules/elements.mjs';
 import { indexRange, sleep } from './modules/utils.mjs';
 // pre-defined html elements
 const itemsContainer = document.getElementById('items');
@@ -24,20 +29,22 @@ for (const stage of conveyorStages) {
   stagesContainer.appendChild(stage);
 }
 
-function placeItemsInStorage() {
+const placeItemsInStorage = () => {
   for (const item of Object.values(items)) {
     itemsContainer.appendChild(item);
   }
-}
+};
 
 placeItemsInStorage();
 
 const stages = [...conveyorStages, outputContainer];
 
-async function conveyorFlow() {
+const runConveyorFlow = async () => {
+  disableButton(startButton);
   const storage = Object.keys(items);
 
   let inProgress = [];
+
   do {
     const newItem = storage.pop();
     if (newItem) {
@@ -59,6 +66,7 @@ async function conveyorFlow() {
   } while (inProgress.length);
 
   placeItemsInStorage();
-}
+  enableButton(startButton);
+};
 
-startButton.onclick = conveyorFlow;
+startButton.onclick = runConveyorFlow;

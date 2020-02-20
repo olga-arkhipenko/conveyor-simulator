@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'airbnb-base',
     'prettier',
+    'plugin:jsdoc/recommended',
   ],
   globals: {
     Atomics: 'readonly',
